@@ -4,11 +4,17 @@ import './index.css'
 import App from './App.jsx'
 import { router } from './routes/Routes.jsx'
 import { RouterProvider } from 'react-router'
+import BookContext from './context/BookContext.jsx'
+import BookProvider from './context/BookContext.jsx'
+
 
 
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
-   <RouterProvider  router={router}/>
+   <BookProvider>
+    <RouterProvider  router={router}/>
+   </BookProvider>
+   
   </StrictMode>,
 )

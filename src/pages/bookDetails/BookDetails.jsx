@@ -1,4 +1,7 @@
+import { useContext } from 'react';
+import { useState } from 'react';
 import { useLoaderData, useParams } from 'react-router';
+import { BookContext } from '../../context/BookContext';
 
 const BookDetails = () => {
 
@@ -6,13 +9,24 @@ const BookDetails = () => {
     console.log(bookParamsId, 'bookId');
 
     const books = useLoaderData();
-    console.log(books, 'books');
+    // console.log(books, 'books');
 
     const expectedBook = books.find(book => book.bookId === Number(bookParamsId));
-    console.log(expectedBook, 'expectedBook');
-    const {bookName,author,image,review,totalPages,rating,category,tags,publisher,yearOfPublishing} = expectedBook
+    // console.log(expectedBook, 'expectedBook');
+    const {bookName,author,image,review,totalPages,rating,category,tags,publisher,yearOfPublishing} = expectedBook;
 
+    const {handleMarkAsRead, storedBooks} = useContext(BookContext);
+    // console.log(handleMarkAsRead, storedBooks, 'bookContext')
 
+   
+        /**
+         * step 1: store book id or store book object
+         * step 2: where to store
+         * step 3: array or collection
+         * step 4: If the book is already exist then show a alert or toast
+         * step 5: If not then add the book in the array or collection
+         */
+    
     
     return (
         <div className="grid grid-cols-2 bg-base-100 shadow-sm container mx-auto my-15">
@@ -50,8 +64,8 @@ const BookDetails = () => {
            <span>Rating:</span>  <span>{rating}</span>
         </div>
       <div className='flex items-center gap-2'>
-        <button className="btn ">Read</button>
-      <button className="btn btn-info">Wishlist</button>
+        <button className="btn" onClick={()=> handleMarkAsRead(expectedBook)} >Mark as Read</button>
+      <button className="btn btn-info">Add to Wishlist</button>
       </div>
     </div>
   </div>
