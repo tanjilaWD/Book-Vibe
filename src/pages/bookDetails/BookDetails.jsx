@@ -1,5 +1,5 @@
 import { useContext } from 'react';
-import { useState } from 'react';
+
 import { useLoaderData, useParams } from 'react-router';
 import { BookContext } from '../../context/BookContext';
 
@@ -15,7 +15,7 @@ const BookDetails = () => {
     // console.log(expectedBook, 'expectedBook');
     const {bookName,author,image,review,totalPages,rating,category,tags,publisher,yearOfPublishing} = expectedBook;
 
-    const {handleMarkAsRead, storedBooks} = useContext(BookContext);
+    const {handleMarkAsRead, handleWishList} = useContext(BookContext);
     // console.log(handleMarkAsRead, storedBooks, 'bookContext')
 
    
@@ -65,7 +65,7 @@ const BookDetails = () => {
         </div>
       <div className='flex items-center gap-2'>
         <button className="btn" onClick={()=> handleMarkAsRead(expectedBook)} >Mark as Read</button>
-      <button className="btn btn-info">Add to Wishlist</button>
+      <button className="btn btn-info" onClick={()=> handleWishList(expectedBook) }>Add to Wishlist</button>
       </div>
     </div>
   </div>
