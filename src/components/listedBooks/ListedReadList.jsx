@@ -1,12 +1,31 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { BookContext } from '../../context/BookContext';
 import BookCard from './../ui/BookCard';
 
-const ListedReadList = () => {
+const ListedReadList = ({sortingType}) => {
     const {  readList} = useContext(BookContext);
             console.log(readList, 'bookContext');
+            const [filteredReadList, setFilteredReadList] = useState(readList);
 
-             if(  readList.length === 0){
+    useEffect(()=>{
+        if(sortingType){
+            if(sortingType === 'pages'){
+            const sorteData = [...readList].sort((a,b)=> a.totalPages - b.totalPages);
+            console.log(sorteData);
+            setFilteredReadList(sorteData);
+
+        } else if (sortingType === 'rating'){
+            //
+             const sorteData = [...readList].sort((a,b)=> a.rating - b.rating);
+            console.log(sorteData);
+            setFilteredReadList(sorteData);
+
+                    }
+                }
+
+            }, [sortingType, readList] );
+
+             if(  filteredReadList.length === 0){
             return <div className='h-[50vh] bg-gray-100 flex items-center justify-center '>
                 <h2 className='font-bold text-3xl'>No Read List Data Found</h2>
             </div>
@@ -16,7 +35,7 @@ const ListedReadList = () => {
         <div>
             <div className='grid grid-cols-1 md:grid-cols-3 gap-4'>
             {
-                readList.map((book, ind) => (
+                filteredReadList.map((book, ind) => (
                 <BookCard key={ind} book={book} />
             ) )
             }
